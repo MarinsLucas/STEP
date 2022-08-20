@@ -1,0 +1,17 @@
+C:\Users\lucas\Desktop\STEP\bin\Debug\net6.0-windows\STEP.exe
+C:\Users\lucas\Desktop\STEP\bin\Debug\net6.0-windows\STEP.deps.json
+C:\Users\lucas\Desktop\STEP\bin\Debug\net6.0-windows\STEP.runtimeconfig.json
+C:\Users\lucas\Desktop\STEP\bin\Debug\net6.0-windows\STEP.dll
+C:\Users\lucas\Desktop\STEP\bin\Debug\net6.0-windows\STEP.pdb
+C:\Users\lucas\Desktop\STEP\obj\Debug\net6.0-windows\STEP.csproj.AssemblyReference.cache
+C:\Users\lucas\Desktop\STEP\obj\Debug\net6.0-windows\STEP.Form1.resources
+C:\Users\lucas\Desktop\STEP\obj\Debug\net6.0-windows\STEP.csproj.GenerateResource.cache
+C:\Users\lucas\Desktop\STEP\obj\Debug\net6.0-windows\STEP.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\lucas\Desktop\STEP\obj\Debug\net6.0-windows\STEP.AssemblyInfoInputs.cache
+C:\Users\lucas\Desktop\STEP\obj\Debug\net6.0-windows\STEP.AssemblyInfo.cs
+C:\Users\lucas\Desktop\STEP\obj\Debug\net6.0-windows\STEP.csproj.CoreCompileInputs.cache
+C:\Users\lucas\Desktop\STEP\obj\Debug\net6.0-windows\STEP.dll
+C:\Users\lucas\Desktop\STEP\obj\Debug\net6.0-windows\refint\STEP.dll
+C:\Users\lucas\Desktop\STEP\obj\Debug\net6.0-windows\STEP.pdb
+C:\Users\lucas\Desktop\STEP\obj\Debug\net6.0-windows\STEP.genruntimeconfig.cache
+C:\Users\lucas\Desktop\STEP\obj\Debug\net6.0-windows\ref\STEP.dll

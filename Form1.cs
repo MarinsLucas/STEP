@@ -12,10 +12,17 @@ namespace STEP
             InitializeComponent();
         }
 
-        private static void AddText(FileStream fs, string value)
+        private void drawGraphic(int[] information)
         {
-            byte[] info = new UTF8Encoding(true).GetBytes(value);
-            fs.Write(info, 0, info.Length);
+            Bitmap bitmap = new Bitmap(1000, 800, System.Drawing.Imaging.PixelFormat.Format32bppPArgb);
+            Graphics graphics = Graphics.FromImage(bitmap);
+            Pen pen = new Pen(Color.Blue, 2);
+            for (int i = 0; i < information.Length; i++)
+            {
+                graphics.DrawLine(pen, i * 10, information[i - 1], (i + 1) * 10, information[i]);
+            }
+
+            bitmap.Save("graphic.png");
         }
 
         private void button1_Click(object sender, EventArgs e)

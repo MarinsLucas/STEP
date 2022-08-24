@@ -8,10 +8,11 @@ namespace STEP
 {
     public partial class Form1 : Form
     {
-        private string file_name = null; 
+        private string file_name; 
         public Form1()
         {
             InitializeComponent();
+            file_name = null;
         }
 
         //Draws a simple linear graphic representing a single dimension of telemetry data
@@ -25,6 +26,7 @@ namespace STEP
             }
 
             bitmap.Save(name + ".png");
+
             pictureBox1.Image = bitmap;
         }
 
@@ -55,6 +57,21 @@ namespace STEP
 
         }
 
+        //draw g-g diagram
+        private void drawGGDiagram(int[][] information)
+        {
+            Pen pen = new Pen(Color.DarkBlue, 2);
+            Bitmap bitmap = new Bitmap(1000, 800, System.Drawing.Imaging.PixelFormat.Format32bppPArgb);
+            Graphics graphics = Graphics.FromImage(bitmap);
+
+            for(int i = 0; i < information[0].Length; i++)
+            {
+                graphics.DrawEllipse(pen, new Rectangle(information[0][i], information[1][i], 1, 1));
+            }
+            bitmap.Save("gg.png");
+
+            pictureBox1.Image = bitmap;
+        }
 
         //function that read the file
         private void readingFile(String path, int controler)
@@ -92,7 +109,8 @@ namespace STEP
                     drawLinearGraphic(information[2], new Pen(Color.Red, 1), "z");
                     break;
                 case 3:
-                    drawMultipleLinearGraphics(information);
+                    //drawMultipleLinearGraphics(information);
+                    drawGGDiagram(information);
                     break;
             }
         }
@@ -149,5 +167,6 @@ namespace STEP
             if (file_name != null)
                 readingFile(file_name, 3);
         }
+
     }
 }

@@ -8,6 +8,7 @@ namespace STEP
 {
     public partial class Form1 : Form
     {
+        private string file_name = null; 
         public Form1()
         {
             InitializeComponent();
@@ -24,8 +25,10 @@ namespace STEP
             }
 
             bitmap.Save(name + ".png");
+            pictureBox1.Image = bitmap;
         }
 
+        //Draw a linear graphic with all three dimensions of data
         private void drawMultipleLinearGraphics(int[][] information)
         {
             Pen pen = new Pen(Color.White, 1);
@@ -47,11 +50,16 @@ namespace STEP
             }
 
             bitmap.Save("xyz.png");
+
+            pictureBox1.Image = bitmap;
+
         }
 
-        private void readingFile(String path)
+
+        //function that read the file
+        private void readingFile(String path, int controler)
         {
-            int [][] information;
+            int[][] information;
             using (TextReader reader = File.OpenText(path))
             {
                 string text = reader.ReadToEnd();
@@ -72,21 +80,21 @@ namespace STEP
                 }
             }
 
-
-            //Debug with random numbers
-            /*
-             * for(int i=0;i<150;i++)
+            switch (controler)
             {
-                information[i] = new Random().Next(720);
+                case 0:
+                    drawLinearGraphic(information[0], new Pen(Color.Green, 1), "x");
+                    break;
+                case 1:
+                    drawLinearGraphic(information[1], new Pen(Color.Blue, 1), "y");
+                    break;
+                case 2:
+                    drawLinearGraphic(information[2], new Pen(Color.Red, 1), "z");
+                    break;
+                case 3:
+                    drawMultipleLinearGraphics(information);
+                    break;
             }
-            */
-            drawLinearGraphic(information[0], new Pen(Color.Green, 1), "x");
-            drawLinearGraphic(information[1], new Pen(Color.Blue, 1), "y");
-            drawLinearGraphic(information[2], new Pen(Color.Red, 1), "z");
-
-            drawMultipleLinearGraphics(information);
-
-
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -113,9 +121,33 @@ namespace STEP
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 //Open the stream and read 
-                readingFile(openFileDialog1.FileName);
+                file_name = openFileDialog1.FileName;
+                readingFile(openFileDialog1.FileName, 3);
             }
+        }
 
+        private void linearXAxys_click(object sender, EventArgs e)
+        {
+            if(file_name != null)
+                readingFile(file_name, 0);
+        }
+
+        private void linearYAxys_click(object sender, EventArgs e)
+        {
+            if (file_name != null)
+                readingFile(file_name, 1);
+        }
+
+        private void linearZAxys_click(object sender, EventArgs e)
+        {
+            if (file_name != null)
+                readingFile(file_name, 2);
+        }
+
+        private void linearXYZ_click(object sender, EventArgs e)
+        {
+            if (file_name != null)
+                readingFile(file_name, 3);
         }
     }
 }

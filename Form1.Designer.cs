@@ -35,7 +35,9 @@
             this.linearYAxys = new System.Windows.Forms.Button();
             this.linearZAxys = new System.Windows.Forms.Button();
             this.XYZ = new System.Windows.Forms.Button();
+            this.axys = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.axys)).BeginInit();
             this.SuspendLayout();
             // 
             // OpenFile
@@ -100,6 +102,14 @@
             this.XYZ.UseVisualStyleBackColor = true;
             this.XYZ.Click += new System.EventHandler(this.linearXYZ_click);
             // 
+            // axys
+            // 
+            this.axys.Location = new System.Drawing.Point(12, 12);
+            this.axys.Name = "axys";
+            this.axys.Size = new System.Drawing.Size(776, 351);
+            this.axys.TabIndex = 6;
+            this.axys.TabStop = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -111,9 +121,11 @@
             this.Controls.Add(this.linearXAxys);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.OpenFile);
+            this.Controls.Add(this.axys);
             this.Name = "Form1";
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.axys)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -127,5 +139,6 @@
         private Button linearYAxys;
         private Button linearZAxys;
         private Button XYZ;
+        private PictureBox axys;
     }
 }

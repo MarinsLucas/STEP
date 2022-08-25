@@ -18,11 +18,11 @@ namespace STEP
         //Draws a simple linear graphic representing a single dimension of telemetry data
         private void drawLinearGraphic(int[] information, Pen pen, string name)
         {
-            Bitmap bitmap = new Bitmap(1000, 800, System.Drawing.Imaging.PixelFormat.Format32bppPArgb);
+            Bitmap bitmap = drawLinearAxys(new Bitmap(pictureBox1.Width, pictureBox1.Height, System.Drawing.Imaging.PixelFormat.Format32bppPArgb));
             Graphics graphics = Graphics.FromImage(bitmap);
             for (int i = 1; i < information.Length; i++)
             {
-                graphics.DrawLine(pen, i * 10, information[i - 1], (i + 1) * 10, information[i]);
+                graphics.DrawLine(pen, i * 10, bitmap.Height/2 - information[i - 1], (i + 1) * 10, bitmap.Height/2 - information[i]);
             }
 
             bitmap.Save(name + ".png");
@@ -32,9 +32,10 @@ namespace STEP
 
         //Draw a linear graphic with all three dimensions of data
         private void drawMultipleLinearGraphics(int[][] information)
-        {
+        { 
+
             Pen pen = new Pen(Color.White, 1);
-            Bitmap bitmap = new Bitmap(1000, 800, System.Drawing.Imaging.PixelFormat.Format32bppPArgb);
+            Bitmap bitmap = drawLinearAxys(new Bitmap(pictureBox1.Width, pictureBox1.Height, System.Drawing.Imaging.PixelFormat.Format32bppPArgb));
             Graphics graphics = Graphics.FromImage(bitmap);
             for (int j = 0; j<3;j++)
             {
@@ -47,7 +48,7 @@ namespace STEP
                 
                 for (int i = 1; i < information[j].Length; i++)
                 {
-                    graphics.DrawLine(pen, i * 10, information[j][i - 1], (i + 1) * 10, information[j][i]);
+                    graphics.DrawLine(pen, i * 10, bitmap.Height/2 - information[j][i - 1], (i + 1) * 10, bitmap.Height/2- information[j][i]);
                 }
             }
 
@@ -61,16 +62,38 @@ namespace STEP
         private void drawGGDiagram(int[][] information)
         {
             Pen pen = new Pen(Color.DarkBlue, 2);
-            Bitmap bitmap = new Bitmap(1000, 800, System.Drawing.Imaging.PixelFormat.Format32bppPArgb);
+            Bitmap bitmap = drawGGAxys(new Bitmap(pictureBox1.Width, pictureBox1.Height, System.Drawing.Imaging.PixelFormat.Format32bppPArgb));
             Graphics graphics = Graphics.FromImage(bitmap);
 
             for(int i = 0; i < information[0].Length; i++)
             {
-                graphics.DrawEllipse(pen, new Rectangle(information[0][i], information[1][i], 1, 1));
+                graphics.DrawEllipse(pen, new Rectangle(bitmap.Width/2 + information[0][i], bitmap.Height/2 - information[1][i], 2, 2));
             }
             bitmap.Save("gg.png");
 
             pictureBox1.Image = bitmap;
+        }
+
+        private Bitmap drawLinearAxys(Bitmap bitmap)
+        {
+            Pen pen = new Pen(Color.Black, 2);
+            Graphics graphics = Graphics.FromImage(bitmap);
+
+            graphics.DrawLine(pen, 0, bitmap.Height/2, bitmap.Width, bitmap.Height/2);
+            graphics.DrawLine(pen, 10, 0, 10, bitmap.Height);
+
+            return bitmap; 
+        }
+
+        private Bitmap drawGGAxys(Bitmap bitmap)
+        {
+            Pen pen = new Pen(Color.Black, 2);
+            Graphics graphics = Graphics.FromImage(bitmap);
+
+            graphics.DrawLine(pen, 0, bitmap.Height / 2, bitmap.Width, bitmap.Height / 2);
+            graphics.DrawLine(pen, bitmap.Width/2, 0, bitmap.Width/2, bitmap.Height);
+
+            return bitmap;
         }
 
         //function that read the file

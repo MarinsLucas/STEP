@@ -35,9 +35,8 @@
             this.linearYAxys = new System.Windows.Forms.Button();
             this.linearZAxys = new System.Windows.Forms.Button();
             this.XYZ = new System.Windows.Forms.Button();
-            this.axys = new System.Windows.Forms.PictureBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.axys)).BeginInit();
             this.SuspendLayout();
             // 
             // OpenFile
@@ -56,11 +55,12 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(12, 12);
+            this.pictureBox1.Location = new System.Drawing.Point(12, 49);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(776, 351);
+            this.pictureBox1.Size = new System.Drawing.Size(776, 314);
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
+            this.pictureBox1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseClick);
             // 
             // linearXAxys
             // 
@@ -102,31 +102,31 @@
             this.XYZ.UseVisualStyleBackColor = true;
             this.XYZ.Click += new System.EventHandler(this.linearXYZ_click);
             // 
-            // axys
+            // textBox1
             // 
-            this.axys.Location = new System.Drawing.Point(12, 12);
-            this.axys.Name = "axys";
-            this.axys.Size = new System.Drawing.Size(776, 351);
-            this.axys.TabIndex = 6;
-            this.axys.TabStop = false;
+            this.textBox1.Location = new System.Drawing.Point(12, 12);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(776, 27);
+            this.textBox1.TabIndex = 6;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(800, 405);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.XYZ);
             this.Controls.Add(this.linearZAxys);
             this.Controls.Add(this.linearYAxys);
             this.Controls.Add(this.linearXAxys);
-            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.OpenFile);
-            this.Controls.Add(this.axys);
+            this.Controls.Add(this.pictureBox1);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseClick);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.axys)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -139,6 +139,6 @@
         private Button linearYAxys;
         private Button linearZAxys;
         private Button XYZ;
-        private PictureBox axys;
+        private TextBox textBox1;
     }
 }

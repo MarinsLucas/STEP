@@ -8,7 +8,8 @@ namespace STEP
 {
     public partial class Form1 : Form
     {
-        private string file_name; 
+        private string? file_name;
+        private int[][]? information;
         public Form1()
         {
             InitializeComponent();
@@ -99,7 +100,6 @@ namespace STEP
         //function that read the file
         private void readingFile(String path, int controler)
         {
-            int[][] information;
             using (TextReader reader = File.OpenText(path))
             {
                 string text = reader.ReadToEnd();
@@ -191,5 +191,20 @@ namespace STEP
                 readingFile(file_name, 3);
         }
 
+        private void Form1_MouseClick(object sender, MouseEventArgs e)
+        {
+            int x = e.X;
+            if (information != null)
+            {
+                textBox1.Text = information[0][(int)x / 10 > information[0].Length? information[0].Length - 1 : (int) x/10].ToString(); //FIXME: out of bounds (of course)
+            }
+            else
+                textBox1.Text = "information not informed";  
+        }
+
+        private void pictureBox1_MouseClick(object sender, MouseEventArgs e)
+        {
+            Form1_MouseClick(sender, e);
+        }
     }
 }

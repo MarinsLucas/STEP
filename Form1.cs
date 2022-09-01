@@ -9,7 +9,10 @@ namespace STEP
     public partial class Form1 : Form
     {
         private string? file_name;
-        private int[][]? information;
+        private float[][]? information;
+        private short graphic_type = 0;
+        private float width_; 
+        private float height_;
         public Form1()
         {
             InitializeComponent();
@@ -17,13 +20,29 @@ namespace STEP
         }
 
         //Draws a simple linear graphic representing a single dimension of telemetry data
-        private void drawLinearGraphic(int[] information, Pen pen, string name)
+        private void drawLinearGraphic(float[] information, Pen pen, string name)
         {
+            float h = 0, l = 0;
+            for (int i = 0; i < information.Length; i++)
+            {
+                if (information[i] < l)
+                {
+                    l = information[i];
+                }
+                if (information[i] > h)
+                {
+                    h = information[i];
+                }
+            }
+
+            height_ = ((h - l) / this.ClientSize.Height) * 1.50f;
+            width_ = this.ClientSize.Width / (information.Length + 3);
+
             Bitmap bitmap = drawLinearAxys(new Bitmap(pictureBox1.Width, pictureBox1.Height, System.Drawing.Imaging.PixelFormat.Format32bppPArgb));
             Graphics graphics = Graphics.FromImage(bitmap);
             for (int i = 1; i < information.Length; i++)
             {
-                graphics.DrawLine(pen, i * 10, bitmap.Height/2 - information[i - 1], (i + 1) * 10, bitmap.Height/2 - information[i]);
+                graphics.DrawLine(pen, i*width_, bitmap.Height/2 - information[i - 1]/height_, (i+1)*width_, bitmap.Height/2 - information[i]/height_);
             }
 
             bitmap.Save(name + ".png");
@@ -32,8 +51,26 @@ namespace STEP
         }
 
         //Draw a linear graphic with all three dimensions of data
-        private void drawMultipleLinearGraphics(int[][] information)
-        { 
+        private void drawMultipleLinearGraphics(float[][] information)
+        {
+            float h = 0, l = 0;
+            for (int j = 0; j < 3; j++)
+            {
+                for (int i = 0; i < information.Length; i++)
+                {
+                    if (information[j][i] < l)
+                    {
+                        l = information[j][i];
+                    }
+                    if (information[j][i] > h)
+                    {
+                        h = information[j][i];
+                    }
+                }
+            }
+
+            height_ = ((h - l) / this.ClientSize.Height) * 1.50f;
+            width_ = this.ClientSize.Width / (information[0].Length + 3);
 
             Pen pen = new Pen(Color.White, 1);
             Bitmap bitmap = drawLinearAxys(new Bitmap(pictureBox1.Width, pictureBox1.Height, System.Drawing.Imaging.PixelFormat.Format32bppPArgb));
@@ -49,7 +86,7 @@ namespace STEP
                 
                 for (int i = 1; i < information[j].Length; i++)
                 {
-                    graphics.DrawLine(pen, i * 10, bitmap.Height/2 - information[j][i - 1], (i + 1) * 10, bitmap.Height/2- information[j][i]);
+                    graphics.DrawLine(pen, i * width_, bitmap.Height/2 - information[j][i - 1] / height_, (i + 1) * width_, bitmap.Height/2- information[j][i] / height_);
                 }
             }
 
@@ -60,7 +97,7 @@ namespace STEP
         }
 
         //draw g-g diagram
-        private void drawGGDiagram(int[][] information)
+        private void drawGGDiagram(float[][] information)
         {
             Pen pen = new Pen(Color.DarkBlue, 2);
             Bitmap bitmap = drawGGAxys(new Bitmap(pictureBox1.Width, pictureBox1.Height, System.Drawing.Imaging.PixelFormat.Format32bppPArgb));
@@ -68,7 +105,7 @@ namespace STEP
 
             for(int i = 0; i < information[0].Length; i++)
             {
-                graphics.DrawEllipse(pen, new Rectangle(bitmap.Width/2 + information[0][i], bitmap.Height/2 - information[1][i], 2, 2));
+                graphics.DrawEllipse(pen, new Rectangle((int)(bitmap.Width/2 + information[0][i]),(int) (bitmap.Height/2 - information[1][i]), 2, 2));
             }
             bitmap.Save("gg.png");
 
@@ -81,7 +118,7 @@ namespace STEP
             Graphics graphics = Graphics.FromImage(bitmap);
 
             graphics.DrawLine(pen, 0, bitmap.Height/2, bitmap.Width, bitmap.Height/2);
-            graphics.DrawLine(pen, 10, 0, 10, bitmap.Height);
+            graphics.DrawLine(pen, width_, 0, width_, bitmap.Height);
 
             return bitmap; 
         }
@@ -98,7 +135,7 @@ namespace STEP
         }
 
         //function that read the file
-        private void readingFile(String path, int controler)
+        private void readingFile(String path)
         {
             using (TextReader reader = File.OpenText(path))
             {
@@ -106,36 +143,20 @@ namespace STEP
                 
                 
                 string[] line = text.Split('\n');
-                information = new int[3][];
-                information[0] = new int[line.Length];
-                information[1] = new int[line.Length];
-                information[2] = new int[line.Length];
+                information = new float[3][];
+                information[0] = new float[line.Length];
+                information[1] = new float[line.Length];
+                information[2] = new float[line.Length];
 
                 for (int i = 0; i < line.Length; i++)
                 {
                     string[] numbers = line[i].Split(';');
-                    information[0][i] = int.Parse(numbers[0]);
-                    information[1][i] = int.Parse(numbers[1]);
-                    information[2][i] = int.Parse(numbers[2]);
+                    information[0][i] = float.Parse(numbers[0]);
+                    information[1][i] = float.Parse(numbers[1]);
+                    information[2][i] = float.Parse(numbers[2]);
                 }
             }
-
-            switch (controler)
-            {
-                case 0:
-                    drawLinearGraphic(information[0], new Pen(Color.Green, 1), "x");
-                    break;
-                case 1:
-                    drawLinearGraphic(information[1], new Pen(Color.Blue, 1), "y");
-                    break;
-                case 2:
-                    drawLinearGraphic(information[2], new Pen(Color.Red, 1), "z");
-                    break;
-                case 3:
-                    //drawMultipleLinearGraphics(information);
-                    drawGGDiagram(information);
-                    break;
-            }
+            redraw();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -163,32 +184,45 @@ namespace STEP
             {
                 //Open the stream and read 
                 file_name = openFileDialog1.FileName;
-                readingFile(openFileDialog1.FileName, 3);
+                graphic_type = 3; 
+                readingFile(openFileDialog1.FileName);
             }
         }
 
         private void linearXAxys_click(object sender, EventArgs e)
         {
-            if(file_name != null)
-                readingFile(file_name, 0);
+            if (file_name != null)
+            {
+                graphic_type = 0; 
+                readingFile(file_name);
+            }
         }
 
         private void linearYAxys_click(object sender, EventArgs e)
         {
             if (file_name != null)
-                readingFile(file_name, 1);
+            {
+                graphic_type = 1; 
+                readingFile(file_name);
+            }
         }
 
         private void linearZAxys_click(object sender, EventArgs e)
         {
             if (file_name != null)
-                readingFile(file_name, 2);
+            {
+                graphic_type = 2; 
+                readingFile(file_name);
+            }
         }
 
         private void linearXYZ_click(object sender, EventArgs e)
         {
             if (file_name != null)
-                readingFile(file_name, 3);
+            {
+                graphic_type = 3; 
+                readingFile(file_name);
+            }
         }
 
         private void Form1_MouseClick(object sender, MouseEventArgs e)
@@ -205,6 +239,33 @@ namespace STEP
         private void pictureBox1_MouseClick(object sender, MouseEventArgs e)
         {
             Form1_MouseClick(sender, e);
+        }
+
+        private void redraw()
+        {
+            if (information == null) return;            
+            switch (graphic_type)
+            {
+                case 0:
+                    drawLinearGraphic(information[0], new Pen(Color.Green, 1), "x");
+                    break;
+                case 1:
+                    drawLinearGraphic(information[1], new Pen(Color.Blue, 1), "y");
+                    break;
+                case 2:
+                    drawLinearGraphic(information[2], new Pen(Color.Red, 1), "z");
+                    break;
+                case 3:
+                    drawMultipleLinearGraphics(information);
+                    //drawGGDiagram(information);
+                    break;
+            }
+        }
+
+        private void Form1_Resize(object sender, EventArgs e)
+        { 
+            this.pictureBox1.Size = new System.Drawing.Size(this.ClientSize.Width, this.ClientSize.Height);
+            redraw();
         }
     }
 }

@@ -41,6 +41,7 @@
             // 
             // OpenFile
             // 
+            this.OpenFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.OpenFile.Location = new System.Drawing.Point(22, 369);
             this.OpenFile.Name = "OpenFile";
             this.OpenFile.Size = new System.Drawing.Size(100, 30);
@@ -57,13 +58,14 @@
             // 
             this.pictureBox1.Location = new System.Drawing.Point(0, -1);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(801, 410);
+            this.pictureBox1.Size = new System.Drawing.Size(801, 365);
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
             this.pictureBox1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseClick);
             // 
             // linearXAxys
             // 
+            this.linearXAxys.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.linearXAxys.Location = new System.Drawing.Point(223, 369);
             this.linearXAxys.Name = "linearXAxys";
             this.linearXAxys.Size = new System.Drawing.Size(94, 29);
@@ -74,6 +76,7 @@
             // 
             // linearYAxys
             // 
+            this.linearYAxys.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.linearYAxys.Location = new System.Drawing.Point(323, 370);
             this.linearYAxys.Name = "linearYAxys";
             this.linearYAxys.Size = new System.Drawing.Size(94, 29);
@@ -84,6 +87,7 @@
             // 
             // linearZAxys
             // 
+            this.linearZAxys.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.linearZAxys.Location = new System.Drawing.Point(423, 370);
             this.linearZAxys.Name = "linearZAxys";
             this.linearZAxys.Size = new System.Drawing.Size(94, 29);
@@ -94,6 +98,7 @@
             // 
             // XYZ
             // 
+            this.XYZ.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.XYZ.Location = new System.Drawing.Point(523, 369);
             this.XYZ.Name = "XYZ";
             this.XYZ.Size = new System.Drawing.Size(94, 29);
@@ -113,7 +118,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 405);
+            this.BackColor = System.Drawing.SystemColors.InactiveBorder;
+            this.ClientSize = new System.Drawing.Size(800, 410);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.XYZ);
             this.Controls.Add(this.linearZAxys);

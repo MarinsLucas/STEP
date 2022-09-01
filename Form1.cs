@@ -18,7 +18,8 @@ namespace STEP
             InitializeComponent();
             file_name = null;
         }
-
+        //draw graphics and axys
+        #region draw
         //Draws a simple linear graphic representing a single dimension of telemetry data
         private void drawLinearGraphic(float[] information, Pen pen, string name)
         {
@@ -44,9 +45,6 @@ namespace STEP
             {
                 graphics.DrawLine(pen, i*width_, bitmap.Height/2 - information[i - 1]/height_, (i+1)*width_, bitmap.Height/2 - information[i]/height_);
             }
-
-            bitmap.Save(name + ".png");
-
             pictureBox1.Image = bitmap;
         }
 
@@ -89,9 +87,6 @@ namespace STEP
                     graphics.DrawLine(pen, i * width_, bitmap.Height/2 - information[j][i - 1] / height_, (i + 1) * width_, bitmap.Height/2- information[j][i] / height_);
                 }
             }
-
-            bitmap.Save("xyz.png");
-
             pictureBox1.Image = bitmap;
 
         }
@@ -99,16 +94,50 @@ namespace STEP
         //draw g-g diagram
         private void drawGGDiagram(float[][] information)
         {
+            //calculating the radio of proportion
+            float h=0, l = 0;
+            float h_l;
+            for(int i = 0; i < information[0].Length; i++)
+            {
+                if (information[0][i]>h)
+                {
+                    h = information[0][i];
+                }
+                if(information[0][i]<l)
+                {
+                    l = information[0][i];
+                }
+            }
+            h_l = h - l;
+            h = 0;
+            l = 0; 
+            for (int i = 0; i < information[1].Length; i++)
+            {
+                if (information[1][i] > h)
+                {
+                    h = information[0][i];
+                }
+                if (information[1][i] < l)
+                {
+                    l = information[0][i];
+                }
+            }
+
+            if(h_l < h-l)
+            {
+                h_l = h - l; 
+            }
+
+            height_ = h_l/ this.ClientSize.Height * 1.50f;
+            width_ = height_; 
             Pen pen = new Pen(Color.DarkBlue, 2);
             Bitmap bitmap = drawGGAxys(new Bitmap(pictureBox1.Width, pictureBox1.Height, System.Drawing.Imaging.PixelFormat.Format32bppPArgb));
             Graphics graphics = Graphics.FromImage(bitmap);
 
             for(int i = 0; i < information[0].Length; i++)
             {
-                graphics.DrawEllipse(pen, new Rectangle((int)(bitmap.Width/2 + information[0][i]),(int) (bitmap.Height/2 - information[1][i]), 2, 2));
+                graphics.DrawEllipse(pen, new Rectangle((int)(bitmap.Width/2 + information[0][i]/width_),(int) (bitmap.Height/2 - information[1][i]/height_), 2, 2));
             }
-            bitmap.Save("gg.png");
-
             pictureBox1.Image = bitmap;
         }
 
@@ -133,7 +162,7 @@ namespace STEP
 
             return bitmap;
         }
-
+        #endregion
         //function that read the file
         private void readingFile(String path)
         {
@@ -158,7 +187,7 @@ namespace STEP
             }
             redraw();
         }
-
+            #region buttons
         private void button1_Click(object sender, EventArgs e)
         {
             //Configuration of openFileDialog1
@@ -224,7 +253,7 @@ namespace STEP
                 readingFile(file_name);
             }
         }
-
+            #endregion
         private void Form1_MouseClick(object sender, MouseEventArgs e)
         {
             int x = e.X;
@@ -256,15 +285,15 @@ namespace STEP
                     drawLinearGraphic(information[2], new Pen(Color.Red, 1), "z");
                     break;
                 case 3:
-                    drawMultipleLinearGraphics(information);
-                    //drawGGDiagram(information);
+                    //drawMultipleLinearGraphics(information);
+                    drawGGDiagram(information);
                     break;
             }
         }
 
         private void Form1_Resize(object sender, EventArgs e)
         { 
-            this.pictureBox1.Size = new System.Drawing.Size(this.ClientSize.Width, this.ClientSize.Height);
+            this.pictureBox1.Size = new System.Drawing.Size(this.ClientSize.Width, this.ClientSize.Height - (int)(XYZ.Height * 1.5f));
             redraw();
         }
     }

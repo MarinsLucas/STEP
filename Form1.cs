@@ -37,7 +37,7 @@ namespace STEP
             }
 
             height_ = ((h - l) / this.ClientSize.Height) * 1.50f;
-            width_ = this.ClientSize.Width / (information.Length);
+            width_ = this.ClientSize.Width / (information.Length+3);
 
             Bitmap bitmap = drawLinearAxys(new Bitmap(pictureBox1.Width, pictureBox1.Height, System.Drawing.Imaging.PixelFormat.Format32bppPArgb));
             Graphics graphics = Graphics.FromImage(bitmap);
@@ -68,7 +68,7 @@ namespace STEP
             }
 
             height_ = ((h - l) / this.ClientSize.Height) * 1.50f;
-            width_ = this.ClientSize.Width / (information[0].Length);
+            width_ = this.ClientSize.Width / (information[0].Length+3);
             //width_ = information[0].Length / this.ClientSize.Width;
 
             Pen pen = new Pen(Color.White, 1);
@@ -308,6 +308,11 @@ namespace STEP
         { 
             this.pictureBox1.Size = new System.Drawing.Size(this.ClientSize.Width, this.ClientSize.Height - (int)(XYZ.Height * 1.5f));
             redraw();
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
         }
     }
 }

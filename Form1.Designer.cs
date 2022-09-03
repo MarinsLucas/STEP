@@ -37,15 +37,19 @@
             this.XYZ = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.gg = new System.Windows.Forms.Button();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
             this.SuspendLayout();
             // 
             // OpenFile
             // 
-            this.OpenFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.OpenFile.Location = new System.Drawing.Point(22, 369);
+            this.OpenFile.Location = new System.Drawing.Point(19, 13);
             this.OpenFile.Name = "OpenFile";
-            this.OpenFile.Size = new System.Drawing.Size(100, 30);
+            this.OpenFile.Size = new System.Drawing.Size(94, 31);
             this.OpenFile.TabIndex = 0;
             this.OpenFile.Text = "Open File";
             this.OpenFile.UseVisualStyleBackColor = true;
@@ -57,17 +61,16 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(0, -1);
+            this.pictureBox1.Location = new System.Drawing.Point(3, 0);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(801, 365);
+            this.pictureBox1.Size = new System.Drawing.Size(633, 353);
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
             this.pictureBox1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseClick);
             // 
             // linearXAxys
             // 
-            this.linearXAxys.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.linearXAxys.Location = new System.Drawing.Point(223, 369);
+            this.linearXAxys.Location = new System.Drawing.Point(19, 50);
             this.linearXAxys.Name = "linearXAxys";
             this.linearXAxys.Size = new System.Drawing.Size(94, 29);
             this.linearXAxys.TabIndex = 2;
@@ -77,8 +80,7 @@
             // 
             // linearYAxys
             // 
-            this.linearYAxys.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.linearYAxys.Location = new System.Drawing.Point(323, 370);
+            this.linearYAxys.Location = new System.Drawing.Point(19, 85);
             this.linearYAxys.Name = "linearYAxys";
             this.linearYAxys.Size = new System.Drawing.Size(94, 29);
             this.linearYAxys.TabIndex = 3;
@@ -88,8 +90,7 @@
             // 
             // linearZAxys
             // 
-            this.linearZAxys.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.linearZAxys.Location = new System.Drawing.Point(423, 370);
+            this.linearZAxys.Location = new System.Drawing.Point(19, 120);
             this.linearZAxys.Name = "linearZAxys";
             this.linearZAxys.Size = new System.Drawing.Size(94, 29);
             this.linearZAxys.TabIndex = 4;
@@ -99,8 +100,7 @@
             // 
             // XYZ
             // 
-            this.XYZ.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.XYZ.Location = new System.Drawing.Point(523, 369);
+            this.XYZ.Location = new System.Drawing.Point(19, 155);
             this.XYZ.Name = "XYZ";
             this.XYZ.Size = new System.Drawing.Size(94, 29);
             this.XYZ.TabIndex = 5;
@@ -117,8 +117,7 @@
             // 
             // gg
             // 
-            this.gg.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.gg.Location = new System.Drawing.Point(694, 369);
+            this.gg.Location = new System.Drawing.Point(19, 190);
             this.gg.Name = "gg";
             this.gg.Size = new System.Drawing.Size(94, 29);
             this.gg.TabIndex = 7;
@@ -126,25 +125,48 @@
             this.gg.UseVisualStyleBackColor = true;
             this.gg.Click += new System.EventHandler(this.gg_Click);
             // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.splitContainer1.Location = new System.Drawing.Point(12, 45);
+            this.splitContainer1.Name = "splitContainer1";
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.AutoScroll = true;
+            this.splitContainer1.Panel1.Controls.Add(this.pictureBox1);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.gg);
+            this.splitContainer1.Panel2.Controls.Add(this.OpenFile);
+            this.splitContainer1.Panel2.Controls.Add(this.XYZ);
+            this.splitContainer1.Panel2.Controls.Add(this.linearXAxys);
+            this.splitContainer1.Panel2.Controls.Add(this.linearZAxys);
+            this.splitContainer1.Panel2.Controls.Add(this.linearYAxys);
+            this.splitContainer1.Size = new System.Drawing.Size(776, 353);
+            this.splitContainer1.SplitterDistance = 636;
+            this.splitContainer1.TabIndex = 9;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.InactiveBorder;
             this.ClientSize = new System.Drawing.Size(800, 410);
-            this.Controls.Add(this.gg);
             this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.XYZ);
-            this.Controls.Add(this.linearZAxys);
-            this.Controls.Add(this.linearYAxys);
-            this.Controls.Add(this.linearXAxys);
-            this.Controls.Add(this.OpenFile);
-            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.splitContainer1);
             this.Name = "Form1";
             this.Text = "Form1";
             this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseClick);
             this.Resize += new System.EventHandler(this.Form1_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -161,5 +183,6 @@
         private Button XYZ;
         private TextBox textBox1;
         private Button gg;
+        private SplitContainer splitContainer1;
     }
 }

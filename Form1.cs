@@ -37,7 +37,7 @@ namespace STEP
             }
 
             height_ = ((h - l) / this.ClientSize.Height) * 1.50f;
-            width_ = this.ClientSize.Width / (information.Length + 3);
+            width_ = this.ClientSize.Width / (information.Length);
 
             Bitmap bitmap = drawLinearAxys(new Bitmap(pictureBox1.Width, pictureBox1.Height, System.Drawing.Imaging.PixelFormat.Format32bppPArgb));
             Graphics graphics = Graphics.FromImage(bitmap);
@@ -68,7 +68,8 @@ namespace STEP
             }
 
             height_ = ((h - l) / this.ClientSize.Height) * 1.50f;
-            width_ = this.ClientSize.Width / (information[0].Length + 3);
+            width_ = this.ClientSize.Width / (information[0].Length);
+            //width_ = information[0].Length / this.ClientSize.Width;
 
             Pen pen = new Pen(Color.White, 1);
             Bitmap bitmap = drawLinearAxys(new Bitmap(pictureBox1.Width, pictureBox1.Height, System.Drawing.Imaging.PixelFormat.Format32bppPArgb));
@@ -253,7 +254,17 @@ namespace STEP
                 readingFile(file_name);
             }
         }
-            #endregion
+
+        private void gg_Click(object sender, EventArgs e)
+        {
+            if(file_name != null)
+            {
+                graphic_type = 4;
+                readingFile(file_name);
+            }
+        }
+
+        #endregion
         private void Form1_MouseClick(object sender, MouseEventArgs e)
         {
             int x = e.X;
@@ -285,7 +296,9 @@ namespace STEP
                     drawLinearGraphic(information[2], new Pen(Color.Red, 1), "z");
                     break;
                 case 3:
-                    //drawMultipleLinearGraphics(information);
+                    drawMultipleLinearGraphics(information);
+                    break;
+                case 4:
                     drawGGDiagram(information);
                     break;
             }

@@ -36,6 +36,7 @@
             this.linearZAxys = new System.Windows.Forms.Button();
             this.XYZ = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.gg = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -114,12 +115,24 @@
             this.textBox1.Size = new System.Drawing.Size(776, 27);
             this.textBox1.TabIndex = 6;
             // 
+            // gg
+            // 
+            this.gg.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.gg.Location = new System.Drawing.Point(694, 369);
+            this.gg.Name = "gg";
+            this.gg.Size = new System.Drawing.Size(94, 29);
+            this.gg.TabIndex = 7;
+            this.gg.Text = "GG";
+            this.gg.UseVisualStyleBackColor = true;
+            this.gg.Click += new System.EventHandler(this.gg_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.InactiveBorder;
             this.ClientSize = new System.Drawing.Size(800, 410);
+            this.Controls.Add(this.gg);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.XYZ);
             this.Controls.Add(this.linearZAxys);
@@ -147,5 +160,6 @@
         private Button linearZAxys;
         private Button XYZ;
         private TextBox textBox1;
+        private Button gg;
     }
 }

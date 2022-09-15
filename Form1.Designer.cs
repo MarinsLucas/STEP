@@ -57,6 +57,7 @@
             // 
             // openFileDialog1
             // 
+            this.openFileDialog1.AddExtension = false;
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
             // pictureBox1

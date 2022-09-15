@@ -180,10 +180,10 @@ namespace STEP
 
                 for (int i = 0; i < line.Length; i++)
                 {
-                    string[] numbers = line[i].Split(';');
-                    information[0][i] = float.Parse(numbers[0]);
-                    information[1][i] = float.Parse(numbers[1]);
-                    information[2][i] = float.Parse(numbers[2]);
+                    string[] numbers = line[i].Split(',');
+                    information[0][i] = float.Parse(numbers[2]);
+                    information[1][i] = float.Parse(numbers[3]);
+                    information[2][i] = float.Parse(numbers[4]);
                 }
             }
             redraw();
@@ -199,12 +199,12 @@ namespace STEP
 
                 CheckFileExists = true,
                 CheckPathExists = true,
-
+                /*
                 DefaultExt = "txt",
                 Filter = "txt files (*.txt)|*.txt",
                 FilterIndex = 2,
                 RestoreDirectory = true,
-
+                */
                 ReadOnlyChecked = true,
                 ShowReadOnly = true
             };

@@ -52,5 +52,3 @@ with open(file_path) as f:
         plt.scatter(info[0], info[2])
         plt.title('diagram GG')
         plt.show()
-
-

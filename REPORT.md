@@ -19,3 +19,7 @@ Report 01/09:
 
 	- Probably I'll need to add a slider above the graphic, for zooming, and also for scrooling side to side, up and down.
 	- I increased the data from the file to 1440 points (approximately the data that will be catched in one minute of test) and the software is working well... but not ideal. The slider is a must to turn this at least readable.
+	
+========Switch language =========
+- I started the project in C#, but I decided to switch for python because of its graphic ploting system. The library matplot is realy simple to work with and gives what I wanted about the graphic construction. 
+- I decided to stop working in the project because it isn't going to be implemented in the team. There was a lack of interest in the telemetry of suspension.

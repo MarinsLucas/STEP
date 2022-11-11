@@ -23,10 +23,10 @@ gt = input()
 #opening file to read
 with open(file_path) as f:
     lines = f.readlines()
-    info = np.zeros((3, len(lines)))
-    for i in range(1,len(lines)):
+    info = np.zeros((3, len(lines)-1))
+    for i in range(0,len(lines)-1):
         for j in range(0, 3):
-            info[j][i] = lines[i].split(",")[j]
+            info[j][i] = lines[i+1].split(",")[j]
 
 
 #creating a graphic
@@ -49,6 +49,6 @@ with open(file_path) as f:
         plt.title('linear xyz')
         plt.show()
     elif gt == "5":
-        plt.scatter(info[0], info[2])
+        plt.scatter(info[0], info[1])
         plt.title('diagram GG')
         plt.show()

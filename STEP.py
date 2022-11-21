@@ -15,32 +15,34 @@ def converting_acceleration_to_SI(array, sen):
 def converting_ang_to_rad(array):
     return array * m.pi/180
 
+def read_file(file_path):
+    #opening file to read
+    with open(file_path) as f:
+        lines = f.readlines()
+        info = np.zeros((len(lines[0].split(",")), len(lines)-1))
+        for i in range(0,len(lines)-1):
+            for j in range(0, len(lines[0].split(","))):
+                info[j][i] = lines[i].split(",")[j]
+    return info
 
-#opening file diretory 
-root = tk.Tk()
-root.withdraw()
-file_path = filedialog.askopenfilename()
+def main():
+    #opening file diretory 
+    root = tk.Tk()
+    root.withdraw()
+    file_path = filedialog.askopenfilename()
 
-print("Selecione uma opção de gráfico:")
-print("===============================")
-print("1 - gráfico linear x")
-print("2 - gráfico linear y")
-print("3 - gráfico linear z")
-print("4 - gráficos lineares x, y, z")
-print("5 - diagrama GxG")
+    info = read_file(file_path)
 
-gt = input()
+    print("Selecione uma opção de gráfico:")
+    print("===============================")
+    print("1 - gráfico linear x")
+    print("2 - gráfico linear y")
+    print("3 - gráfico linear z")
+    print("4 - gráficos lineares x, y, z")
+    print("5 - diagrama GxG")
 
-#opening file to read
-with open(file_path) as f:
-    lines = f.readlines()
-    info = np.zeros((len(lines[0].split(",")), len(lines)-1))
-    for i in range(0,len(lines)-1):
-        for j in range(0, len(lines[0].split(","))):
-            info[j][i] = lines[i].split(",")[j]
-
-
-#creating a graphic
+    gt = input()
+    #creating a graphic
     if gt == "1":
         plt.plot( list(range(0, len(info[3]))), info[3])    
         plt.title('linear x')
@@ -63,3 +65,6 @@ with open(file_path) as f:
         plt.scatter(converting_acceleration_to_Gforce(info[0], 16384),converting_acceleration_to_Gforce(info[1], 16384), 3)
         plt.title('diagram GG')
         plt.show()
+
+
+main()

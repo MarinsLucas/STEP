@@ -38,7 +38,7 @@ def drawTrack(info, time):
 
     for i in range(1 , n+1):
         deltaTime = time[i] - time[i-1]
-        print(deltaTime)
+        #print(deltaTime)
         angX[i] = angX[i-1] + info[4][i-1]*deltaTime
         angY[i] = angY[i-1] + info[5][i-1]*deltaTime
         angZ[i] = angZ[i-1] + info[6][i-1]*deltaTime
@@ -46,7 +46,7 @@ def drawTrack(info, time):
         #velocidade nova = antigavelocidade + novavelocidade*novoangulo
         velX[i] = velX[i-1] + info[0][i-1]*deltaTime * m.cos(angZ[i-1]) + info[1][i-1] *m.sin(angZ[i-1]) + info[0][i-1]*deltaTime *m.cos(angY[i-1]) + info[2][i-1]*deltaTime *m.sin(angY[i-1])
         velY[i] = velY[i-1] + info[0][i-1]*deltaTime * m.sin(angZ[i-1]) + info[1][i-1] *m.cos(angZ[i-1]) + info[1][i-1]*deltaTime *m.cos(angX[i-1]) + info[2][i-1]*deltaTime *m.sin(angZ[i-1])
-        velZ[i] = velZ[i-1] + info[0][i-1]*deltaTime *m.sin(angY[i-1]) + info[2][i-1]*deltaTime *m.cos(angY[i-1]) + info[1][i-1]*deltaTime *m.sin(angX[i-1]) + info[2][i-1]*deltaTime *m.cos(angZ[i-1])
+        velZ[i] = velZ[i-1] + info[0][i-1]*deltaTime * m.sin(angY[i-1]) + info[2][i-1]*deltaTime *m.cos(angY[i-1]) + info[1][i-1]*deltaTime *m.sin(angX[i-1]) + info[2][i-1]*deltaTime *m.cos(angZ[i-1])
 
         posX[i] = posX[i-1] + velX[i]*deltaTime
         posY[i] = posY[i-1] + velY[i]*deltaTime
@@ -90,6 +90,7 @@ def read_file(file_path):
             tempSeg[i] += float(tempo[i].split(":")[1]) *60 
             tempSeg[i] += float(tempo[i].split(":")[2])
             #print(tempSeg[i])
+        tempSeg[len(tempo) -1] = tempSeg[len(tempo)-2]
     return tempSeg, info
 
 def main():

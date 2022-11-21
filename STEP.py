@@ -4,9 +4,16 @@ import matplotlib.pyplot as plt
 import tkinter as tk
 from tkinter import *
 from tkinter import filedialog    
+import math as m
 
-def converting_to_Gforce(array, sen):
-    return array / [1.0]*sen
+def converting_acceleration_to_Gforce(array, sen):
+    return (array / sen)
+
+def converting_acceleration_to_SI(array, sen):
+    return converting_acceleration_to_Gforce(array, sen) * 9.8
+
+def converting_ang_to_rad(array):
+    return array * m.pi/180
 
 
 #opening file diretory 
@@ -53,6 +60,6 @@ with open(file_path) as f:
         plt.title('linear xyz')
         plt.show()
     elif gt == "5":
-        plt.scatter(converting_to_Gforce(info[0], 16384),converting_to_Gforce(info[1], 16384), 3)
+        plt.scatter(converting_acceleration_to_Gforce(info[0], 16384),converting_acceleration_to_Gforce(info[1], 16384), 3)
         plt.title('diagram GG')
         plt.show()

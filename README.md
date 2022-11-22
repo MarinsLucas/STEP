@@ -14,6 +14,6 @@ The second option it more interesting, because we'll have more control of the an
 
 ## What is Escuderia UFJF?
 Escuderia UFJF is a Formula SAE team based in Juiz de Fora (MG) - Brazil. The team represents the Federal University of Juiz de Fora (Universidade Federal de Juiz de Fora) in the nacional FSAE scenery.
-We are in the way to build our second car (the first to compete), and the goal this year is to improve our tecnical knowledge about the aplication of out project and improve our car for the next national championship.
+We are in the way to build our second car (the first to compete), and the goal this year is to improve our tecnical knowledge about the aplication of our project and improve our car for the next national championship.
 
 

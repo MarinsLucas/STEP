@@ -42,11 +42,15 @@ def drawTrack(info, time):
         angX[i] = angX[i-1] + info[4][i-1]*deltaTime
         angY[i] = angY[i-1] + info[5][i-1]*deltaTime
         angZ[i] = angZ[i-1] + info[6][i-1]*deltaTime
+        #print(str(angX[i]) + " " + str(angY[i]) + " " + str(angZ[i]))
 
+        #v = v0 + a*t
+        #atua = anterior + aceleração entre os dois * o delta tempo
         #velocidade nova = antigavelocidade + novavelocidade*novoangulo
-        velX[i] = velX[i-1] + info[0][i-1]*deltaTime * m.cos(angZ[i-1]) + info[1][i-1] *m.sin(angZ[i-1]) + info[0][i-1]*deltaTime *m.cos(angY[i-1]) + info[2][i-1]*deltaTime *m.sin(angY[i-1])
-        velY[i] = velY[i-1] + info[0][i-1]*deltaTime * m.sin(angZ[i-1]) + info[1][i-1] *m.cos(angZ[i-1]) + info[1][i-1]*deltaTime *m.cos(angX[i-1]) + info[2][i-1]*deltaTime *m.sin(angZ[i-1])
-        velZ[i] = velZ[i-1] + info[0][i-1]*deltaTime * m.sin(angY[i-1]) + info[2][i-1]*deltaTime *m.cos(angY[i-1]) + info[1][i-1]*deltaTime *m.sin(angX[i-1]) + info[2][i-1]*deltaTime *m.cos(angZ[i-1])
+        velX[i] = velX[i-1] + info[0][i-1]*deltaTime 
+        velY[i] = velY[i-1] + info[1][i-1]*deltaTime 
+        velZ[i] = velZ[i-1] + info[2][i-1]*deltaTime 
+        print(str(velX[i]*3.6) + " " + str(velY[i]*3.6) + " " + str(velZ[i]*3.6))
 
         posX[i] = posX[i-1] + velX[i]*deltaTime
         posY[i] = posY[i-1] + velY[i]*deltaTime

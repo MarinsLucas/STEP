@@ -8,6 +8,7 @@ from tkinter import filedialog
 import math as m
 
 QUANT_INFO = 7
+GRAVITY = 9.8
 
 def drawTrack(info, time):
     n = len(info[0])
@@ -68,6 +69,13 @@ def converting_acceleration_to_SI(array, sen):
 
 def converting_ang_to_rad(array):
     return array * m.pi/180
+    
+def gravity_compensation(info, q):
+    g = np.zeros(3)
+    g[0] = 2 * (q[1] * q[3] - q[0] * q[2]) * GRAVITY
+    g[1] = 2 * (q[0] * q[1] + q[2] * q[3]) * GRAVITY
+    g[2] = (q[0] * q[0] - q[1] * q[1] - q[2] * q[2] + q[3] * q[3]) * GRAVITY
+    return info[0]-g[0], info[1]-g[1], info[2]-g[2]
 
 #        Time      acelX   acelY acelZ temp   gyroX gyroY   gyroZ
 #14:27:05.102 ->   -408,   828, 18280,31.12,  -789,   204,  -204

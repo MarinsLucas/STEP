@@ -38,3 +38,8 @@
 		- Gravity compensation (there is a github repo about this)
 		- Axy rotation (I need to understand the sensor behaviour / car position)
 
+#Report 06/12
+	- I'll try to use euler angles for gravity compensation:
+		- I need to multiply the vector gravity (0,0,GRAVITY) by the rotation matriz.
+		- So, I need to calculate angles for all positions, simply by adding Xi for i = 0...n
+		

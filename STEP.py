@@ -6,6 +6,16 @@ from tkinter import *
 from tkinter import filedialog    
 import math as m
 
+#250º/s 131.072
+#500º/s 65.536
+#1000º/s 32,768
+#2000º/s 16,384
+def converting_to_degree(array, sen):
+    return array/65.536
+
+def converting_degree_to_angle(array):
+    return array * np.pi/180
+
 def converting_acceleration_to_Gforce(array, sen):
     return (array / sen)
 

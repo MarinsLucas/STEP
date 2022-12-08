@@ -10,9 +10,6 @@ import math as m
 QUANT_INFO = 7
 GRAVITY = 9.8
 
-yaw = 0
-roll = 0
-pitch = 0
 def drawTrack(info, time):
     n = len(info[0])
 
@@ -73,9 +70,40 @@ def converting_acceleration_to_SI(array, sen):
 def converting_ang_to_rad(array):
     return array * m.pi/180
     
-def gravity_compensation(info):
-    #eu preciso subtrair da vertical a gravidade
-    return
+def gravity_compensation(info, time):
+    g = [0,0,GRAVITY]
+    yaw = 0 #rotação no eixo z 
+    pitch = 1 #rotação no eixo y
+    roll = 0 #rotação no eixo x
+
+    for i in range(1, len(info[0])):
+        p = info[4][i-1] * time[i]
+        q = info[5][i-1] * time[i]
+        r = info[6][i-1] * time[i]
+
+        roll_ = p + q*np.sin(roll)*np.tan(pitch) + r*np.cos(roll)*np.tan(pitch)
+        pitch_ = q*np.cos(roll) - r*np.sin(roll)
+        yaw_ = q*(np.sin(roll)/np.cos(pitch)) + r*(np.cos(roll)/np.cos(pitch))
+
+
+        yaw = yaw + yaw_
+        pitch = pitch + pitch_
+        roll = roll + roll_
+        
+        g = rotationM(g, yaw, pitch, roll)
+
+        print("yaw")
+        print(yaw)
+        print("pitch")
+        print(pitch)
+        print("roll")
+        print(roll) 
+        info[0][i] = info[0][i] - g[0]
+        info[1][i] = info[1][i] - g[1]
+        info[2][i] = info[2][i] - g[2]
+        pprint.pprint(g)
+
+    return info
 
 #Multiplica um vetor pela matriz de rotação e retorna o resultado do cálculo
 def rotationM(vector, yaw, pitch, roll):
@@ -145,6 +173,10 @@ def main():
         plt.title('linear z')
         plt.show()
     elif gt == "4":
+        info[0] = converting_acceleration_to_SI(info[0], 16384)
+        info[1] = converting_acceleration_to_SI(info[1], 16384)
+        info[2] = converting_acceleration_to_SI(info[2], 16384)
+        info = gravity_compensation(info, time)
         plt.plot( list(range(0, len(info[0]))), info[0])    
         plt.plot( list(range(0, len(info[1]))), info[1])    
         plt.plot( list(range(0, len(info[2]))), info[2])    
@@ -162,6 +194,7 @@ def main():
         info[5] = converting_ang_to_rad(info[5])
         info[6] = converting_ang_to_rad(info[6])
 
-        drawTrack(info, time)
+        gravity_compensation(info)
+        #drawTrack(info, time)
 
 main()

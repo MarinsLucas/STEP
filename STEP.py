@@ -61,6 +61,16 @@ def drawTrack(info, time):
     plt.show()
     return
 
+#250º/s 131.072
+#500º/s 65.536
+#1000º/s 32,768
+#2000º/s 16,384
+def converting_to_degree(array, sen):
+    return array/131072
+
+def converting_degree_to_angle(array):
+    return array * np.pi/180
+
 def converting_acceleration_to_Gforce(array, sen):
     return (array / sen)
 
@@ -69,41 +79,29 @@ def converting_acceleration_to_SI(array, sen):
 
 def converting_ang_to_rad(array):
     return array * m.pi/180
-    
-def gravity_compensation(info, time):
-    g = [0,0,GRAVITY]
-    yaw = 0 #rotação no eixo z 
-    pitch = 1 #rotação no eixo y
-    roll = 0 #rotação no eixo x
 
-    for i in range(1, len(info[0])):
-        p = info[4][i-1] * time[i]
-        q = info[5][i-1] * time[i]
-        r = info[6][i-1] * time[i]
+def gravity_compensation(accelerometer_data, tilt_angle):
+    """
+    Compensates for gravity in accelerometer data using tilt angle.
 
-        roll_ = p + q*np.sin(roll)*np.tan(pitch) + r*np.cos(roll)*np.tan(pitch)
-        pitch_ = q*np.cos(roll) - r*np.sin(roll)
-        yaw_ = q*(np.sin(roll)/np.cos(pitch)) + r*(np.cos(roll)/np.cos(pitch))
+    Parameters:
+        - accelerometer_data (numpy array): The accelerometer data to be compensated, of shape (N, 3)
+          where N is the number of samples and the columns are x, y, and z accelerations.
+        - tilt_angle (float): The tilt angle of the accelerometer in radians.
 
+    Returns:
+        - compensated_data (numpy array): The gravity-compensated accelerometer data, of the same shape as the input.
+    """
+    g = 9.81  # acceleration due to gravity
+    c, s = np.cos(tilt_angle), np.sin(tilt_angle)
 
-        yaw = yaw + yaw_
-        pitch = pitch + pitch_
-        roll = roll + roll_
-        
-        g = rotationM(g, yaw, pitch, roll)
+    # Rotation matrix for compensating for tilt
+    R = np.array([[1, 0, 0], [0, c, s], [0, -s, c]])
 
-        print("yaw")
-        print(yaw)
-        print("pitch")
-        print(pitch)
-        print("roll")
-        print(roll) 
-        info[0][i] = info[0][i] - g[0]
-        info[1][i] = info[1][i] - g[1]
-        info[2][i] = info[2][i] - g[2]
-        pprint.pprint(g)
+    # Subtracting gravity from the accelerometer data
+    compensated_data = accelerometer_data - g * R @ np.array([0, 0, 1])
 
-    return info
+    return compensated_data
 
 #Multiplica um vetor pela matriz de rotação e retorna o resultado do cálculo
 def rotationM(vector, yaw, pitch, roll):
@@ -176,15 +174,17 @@ def main():
         info[0] = converting_acceleration_to_SI(info[0], 16384)
         info[1] = converting_acceleration_to_SI(info[1], 16384)
         info[2] = converting_acceleration_to_SI(info[2], 16384)
-        info = gravity_compensation(info, time)
+        
         plt.plot( list(range(0, len(info[0]))), info[0])    
         plt.plot( list(range(0, len(info[1]))), info[1])    
         plt.plot( list(range(0, len(info[2]))), info[2])    
         plt.title('linear xyz')
+        plt.legend(['x', 'y', 'z'])
         plt.show()
     elif gt == "5":
         plt.scatter(converting_acceleration_to_Gforce(info[0], 16384),converting_acceleration_to_Gforce(info[1], 16384), 3)
         plt.title('diagram GG')
+        plt.grid()
         plt.show()
     elif gt == "6":
         info[0] = converting_acceleration_to_SI(info[0], 16384)
@@ -194,7 +194,7 @@ def main():
         info[5] = converting_ang_to_rad(info[5])
         info[6] = converting_ang_to_rad(info[6])
 
-        gravity_compensation(info)
-        #drawTrack(info, time)
+        gravity_compensation(info, time)
+        drawTrack(info, time)
 
 main()

@@ -42,4 +42,11 @@
 	- I'll try to use euler angles for gravity compensation:
 		- I need to multiply the vector gravity (0,0,GRAVITY) by the rotation matriz.
 		- So, I need to calculate angles for all positions, simply by adding Xi for i = 0...n
+
+
+#Report 03/02 
+	- For calculate the zero velocity update, I need to calculate the tangent between a point and other... but my samples has problems about with the time registration.
+	- Also, I need unterstand where is the "zero" for each 
+		- I can do that by calculanting the avarage acceleration measured
+		
 		

@@ -9,7 +9,7 @@ import math as m
 
 QUANT_INFO = 7
 GRAVITY = 9.8
-ZVU_THESHOLD = 0.5
+ZVU_THESHOLD = 0.2
 
 def drawTrack(info, time):
     n = len(info[0])
@@ -144,21 +144,37 @@ def read_file(file_path):
 #The idea is to define when the objetc is updating its velocity
 def zero_velocity_update(info, time):
     limiar = np.zeros(len(info[0]))
-
-    is_on = 0
-    for j in range(1, len(info[0])):
-        for i in range(0, 3):
-            limiar[j] = abs(info[i][j] - info[i][j-1])
-            is_on = limiar[j] > ZVU_THESHOLD
-            if is_on:
-                limiar[j] = 1
-                break
-            else:
-                limiar[j] = 0
     
+    x =0
+    y =0
+    z =0
+    for j in range(0, 15):
+        x += info[0][j]
+        y += info[1][j]
+        z += info[2][j]
+    x = x/15
+    y = y/15
+    z = z/15
+ 
+    xdp = np.std(info[0][0:15])
+    ydp = np.std(info[1][0:15])
+    zdp = np.std(info[2][0:15])
+
+    print("Avarage zero acceleration:\n")
+    print(str(x) + " +- " + str(xdp))
+    print(str(y) + " +- " + str(ydp))
+    print(str(z) + " +- " + str(zdp))
+
+    for j in range(0, len(info[0])):
+        is_on = 0
+        if np.abs(info[0][j] - x) > ZVU_THESHOLD:
+            is_on = 1
+        if np.abs(info[1][j] - y) > ZVU_THESHOLD:
+            is_on = 1
+        if np.abs(info[2][j] - z) > ZVU_THESHOLD:
+            is_on = 1   
+        limiar[j] = is_on
     return limiar
-
-
 
 def main():
     #opening file diretory 

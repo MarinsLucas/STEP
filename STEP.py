@@ -128,8 +128,8 @@ def read_file(file_path):
         for i in range(0,len(lines)):
             tempo[i] = lines[i].split("->")[0]
             lines[i] = lines[i].split("-> ")[1]
-            for j in range(0, len(lines[0].split(";"))):
-                info[j][i] = lines[i].split(";")[j]
+            for j in range(0, len(lines[0].split(","))):
+                info[j][i] = lines[i].split(",")[j]
         
         #o vetor de tempo é preenchido com a hora do dia em segundos
         tempSeg = np.zeros(len(tempo), dtype=float)
@@ -203,6 +203,8 @@ def main():
         plt.title('linear y')
         plt.show()
     elif gt == "3":
+        info[2] = converting_acceleration_to_SI(info[2], 16384)
+        plt.plot([0, len(info[2])], [GRAVITY, GRAVITY], 'k')
         plt.plot( list(range(0, len(info[2]))), info[2])    
         plt.title('linear z')
         plt.show()
@@ -218,9 +220,14 @@ def main():
         plt.title('linear xyz')
         plt.legend(['x', 'y', 'z'])
         plt.show()
-    elif gt == "5":
+    elif gt == "5": 
+        xa = np.zeros(2)
+        xa[0] = -2
+        xa[1] = 2
+        plt.plot(xa, np.zeros(2), 'k')
+        plt.plot(np.zeros(2), xa, 'k')
         plt.scatter(converting_acceleration_to_Gforce(info[0], 16384),converting_acceleration_to_Gforce(info[1], 16384), 3)
-        plt.title('diagram GG')
+        plt.title('Diagrama GG')
         plt.grid()
         plt.show()
     elif gt == "6":

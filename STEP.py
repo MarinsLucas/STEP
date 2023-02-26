@@ -10,6 +10,9 @@ import math as m
 QUANT_INFO = 7
 GRAVITY = 9.8
 ZVU_THESHOLD = 0.2
+SEPCHAR = ';'
+TIMESEPCHAR = '->'
+TIMECHAR = ':'
 
 def drawTrack(info, time):
     n = len(info[0])
@@ -126,17 +129,17 @@ def read_file(file_path):
         tempo = ["" for x in range(len(lines) + 1)]
 
         for i in range(0,len(lines)):
-            tempo[i] = lines[i].split("->")[0]
-            lines[i] = lines[i].split("-> ")[1]
-            for j in range(0, len(lines[0].split(","))):
-                info[j][i] = lines[i].split(",")[j]
+            tempo[i] = lines[i].split(TIMESEPCHAR)[0]
+            lines[i] = lines[i].split(TIMESEPCHAR)[1]
+            for j in range(0, len(lines[0].split(SEPCHAR))):
+                info[j][i] = lines[i].split(SEPCHAR)[j]
         
         #o vetor de tempo é preenchido com a hora do dia em segundos
         tempSeg = np.zeros(len(tempo), dtype=float)
         for i in range (len(tempo)-1):
-            tempSeg[i] = float(tempo[i].split(":")[0]) *3600
-            tempSeg[i] += float(tempo[i].split(":")[1]) *60 
-            tempSeg[i] += float(tempo[i].split(":")[2])
+            tempSeg[i] = float(tempo[i].split(TIMECHAR)[0]) *3600
+            tempSeg[i] += float(tempo[i].split(TIMECHAR)[1]) *60 
+            tempSeg[i] += float(tempo[i].split(TIMECHAR)[2])
             #print(tempSeg[i])
         tempSeg[len(tempo) -1] = tempSeg[len(tempo)-2]
     return tempSeg, info
@@ -176,12 +179,16 @@ def zero_velocity_update(info, time):
         limiar[j] = is_on
     return limiar
 
-def main():
-    #opening file diretory 
-    root = tk.Tk()
-    root.withdraw()
-    file_path = filedialog.askopenfilename()
+def separation_char(value):
+    SEPCHAR = value
 
+def separation_time_char(value):
+    TIMESEPCHAR = value
+
+def time_char(value):
+    TIMECHAR = value
+    
+def run(file_path):
     time, info = read_file(file_path)
 
     print("Selecione uma opção de gráfico:")
@@ -241,4 +248,3 @@ def main():
         gravity_compensation(info, time)
         drawTrack(info, time)
 
-main()

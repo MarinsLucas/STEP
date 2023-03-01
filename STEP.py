@@ -6,6 +6,7 @@ import tkinter as tk
 from tkinter import *
 from tkinter import filedialog
 import math as m
+import json
 
 class STEP:
     QUANT_INFO = 7
@@ -14,8 +15,10 @@ class STEP:
     SEPCHAR = ';'
     TIMESEPCHAR = '->'
     TIMECHAR  = ':'
-    def __init__(self):
-        
+    file_path = "/"
+
+    def __init__(self, file_path):
+        self.load_config_info(file_path)
         return 
     
     def drawTrack(info, time):
@@ -201,6 +204,35 @@ class STEP:
     def get_separation_char(self):
         return self.SEPCHAR
 
+    def set_file_path(self, file_path):
+        self.file_path = file_path
+
+    def load_config_info(self, file_path):
+        with open(file_path) as j:
+            config_info = json.load(j)
+            self.QUANT_INFO = config_info["QUANT_INFO"]    
+            self.GRAVITY = config_info["GRAVITY"]
+            self.ZVU_THESHOLD = config_info["ZVU_THESHOLD"]
+            self.SEPCHAR = config_info["SEPCHAR"]
+            self.TIMESEPCHAR = config_info["TIMESEPCHAR"]
+            self.TIMECHAR = config_info["TIMECHAR"]
+
+    def write_config_info(self, file_path):
+        with open(file_path, 'w') as config_file:
+            config_file.write('{\n \t "QUANT_INFO" : ')
+            config_file.write(str(self.QUANT_INFO))
+            config_file.write(',\n \t "GRAVITY" : ')
+            config_file.write(str(self.GRAVITY))
+            config_file.write(',\n \t "ZVU_THESHOLD": ')
+            config_file.write(str(self.ZVU_THESHOLD))
+            config_file.write(',\n \t "SEPCHAR" : "')
+            config_file.write(str(self.SEPCHAR))
+            config_file.write('",\n \t "TIMESEPCHAR" : "')
+            config_file.write(str(self.TIMESEPCHAR))
+            config_file.write('",\n \t "TIMECHAR" :"')
+            config_file.write(str(self.TIMECHAR))
+            config_file.write('"\n}')
+
     def run(self, file_path):
         time, info = self.read_file(file_path)
 
@@ -260,4 +292,3 @@ class STEP:
 
             gravity_compensation(info, time)
             drawTrack(info, time)
-

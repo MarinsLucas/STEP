@@ -12,7 +12,18 @@ HOME = 0
 window = Tk()
 window.title("Suspension Telemetry Program - Escuderia UFJF")
 
-program = step.STEP()
+INFO_PATH = "./config.json"
+program = step.STEP(INFO_PATH)
+
+
+def mode_selection():
+    unidimensional_graphic_button = Button(window, text="Unidimensional Graphic", command=print("unidimensional_graphic_button") )
+    unidimensional_graphic_button.grid(column=1, row=1)
+    tridimensional_graphic_button = Button(window, text="Tridimensional Graphic", command=print("tridimensional"))
+    tridimensional_graphic_button.grid(column=2, row= 1)
+    gg_diagram_button = Button(window, text= "GG Diagram", command=print("gg diagram"))
+    gg_diagram_button.grid(column=3, row=1)
+    track_layout_button = Button(window, text="Track Layout", command=print("track layout"))
 
 def open_file():
     root = tk.Tk()
@@ -20,15 +31,19 @@ def open_file():
     file_path = filedialog.askopenfilename()
     print(file_path)
     if(len(file_path) > 3):
-        program.run(file_path)
+        program.set_file_path(file_path)
+        #abre esse arquivo
+        mode_selection()
+
     else:  
         print("não tem")
-    return
+
 
 def update_sep_chars(timetime, timeinfo, infoinfo):
     program.separation_char(infoinfo)
     program.separation_time_char(timeinfo)
     program.time_char(timetime)
+    program.write_config_info(INFO_PATH)
     #print("Update separation chars")
 
 
@@ -61,12 +76,15 @@ def input_layout_editor():
 
     #Botão de confirmação
     ok_button = Button(layout_editor, text="OK", command=lambda: [update_sep_chars(timeinput.get(), timeinfoinput.get(),infosepinput.get()), layout_editor.destroy()])
-    ok_button.grid(column=3, row=2)
+    ok_button.grid(column=2, row=2)
 
     #Botão de cancelamento
     cancel_button = Button(layout_editor, text="Cancel", command=layout_editor.destroy)
-    cancel_button.grid(column=4, row=2)
+    cancel_button.grid(column=3, row=2)
 
+    #default button
+    default_button = Button(layout_editor, text= "Return to Default", command=lambda :[update_sep_chars(':', '->', ';') , layout_editor.destroy()])
+    default_button.grid(column= 4, row= 2)
 
     layout_editor.mainloop()
 

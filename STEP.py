@@ -132,25 +132,31 @@ class STEP:
             lines = f.readlines()
             
             #cria matriz de informacao
-            info = np.zeros((self.QUANT_INFO, len(lines)))
+            self.info = np.zeros((self.QUANT_INFO, len(lines)))
             tempo = ["" for x in range(len(lines) + 1)]
-
+            
+            if(not self.TIMESEPCHAR in lines[0]):
+                return 1
+            elif(not self.SEPCHAR in lines[0]):
+                return 2
+            elif(not self.TIMECHAR in lines[0]):
+                return 0
+            
             for i in range(0,len(lines)):
                 tempo[i] = lines[i].split(self.TIMESEPCHAR)[0]
                 lines[i] = lines[i].split(self.TIMESEPCHAR)[1]
                 for j in range(0, len(lines[0].split(self.SEPCHAR))):
-                    info[j][i] = lines[i].split(self.SEPCHAR)[j]
+                    self.info[j][i] = lines[i].split(self.SEPCHAR)[j]
             
             #o vetor de tempo é preenchido com a hora do dia em segundos
-            tempSeg = np.zeros(len(tempo), dtype=float)
+            self.tempSeg = np.zeros(len(tempo), dtype=float)
             for i in range (len(tempo)-1):
-                tempSeg[i] = float(tempo[i].split(self.TIMECHAR)[0]) *3600
-                tempSeg[i] += float(tempo[i].split(self.TIMECHAR)[1]) *60 
-                tempSeg[i] += float(tempo[i].split(self.TIMECHAR)[2])
+                self.tempSeg[i] = float(tempo[i].split(self.TIMECHAR)[0]) *3600
+                self.tempSeg[i] += float(tempo[i].split(self.TIMECHAR)[1]) *60 
+                self.tempSeg[i] += float(tempo[i].split(self.TIMECHAR)[2])
                 #print(tempSeg[i])
-            tempSeg[len(tempo) -1] = tempSeg[len(tempo)-2]
-        return tempSeg, info
-
+            self.tempSeg[len(tempo) -1] = self.tempSeg[len(tempo)-2]
+        return -1
     #The idea is to define when the objetc is updating its velocity
     def zero_velocity_update(self, info, time):
         limiar = np.zeros(len(info[0]))

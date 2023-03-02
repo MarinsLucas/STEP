@@ -2,7 +2,7 @@
  	 "QUANT_INFO" : 7,
  	 "GRAVITY" : 9.8,
  	 "ZVU_THESHOLD": 0.2,
- 	 "SEPCHAR" : ";",
+ 	 "SEPCHAR" : ",",
  	 "TIMESEPCHAR" : "->",
  	 "TIMECHAR" :":"
 }

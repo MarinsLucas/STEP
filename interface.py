@@ -25,6 +25,25 @@ def mode_selection():
     gg_diagram_button.grid(column=3, row=1)
     track_layout_button = Button(window, text="Track Layout", command=print("track layout"))
 
+def read_file_situation(value):
+    if(value > 0):
+        warning = tk.Tk()
+        warning.title("File could not open")
+        problem = ['Time-time char', 'Time-info char', 'Info-info char']
+        warning_text = Label(warning, text="Failed to open file:")
+        warning_text.grid(column=0, row=0)
+        warning_text2 = Label(warning, text=str(problem[value]) + " was not found")
+        warning_text2.grid(column=0, row = 1)
+        warning_text3 = Label(warning, text= "Try to change config in: Edit->Edit Input Layout")
+        warning_text3.grid(column=0, row= 2)
+        ok_button = Button(warning, text= "OK", command=warning.destroy)
+        ok_button.grid(column=0, row=3)
+
+        warning.mainloop()
+        return -1
+    else:
+        return 0
+
 def open_file():
     root = tk.Tk()
     root.withdraw()
@@ -32,8 +51,9 @@ def open_file():
     print(file_path)
     if(len(file_path) > 3):
         program.set_file_path(file_path)
-        #abre esse arquivo
-        mode_selection()
+        if read_file_situation(program.read_file(file_path)) == 0:
+            #abre esse arquivo
+            mode_selection()
 
     else:  
         print("não tem")

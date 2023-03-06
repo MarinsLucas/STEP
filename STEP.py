@@ -7,6 +7,7 @@ from tkinter import *
 from tkinter import filedialog
 import math as m
 import json
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
 class STEP:
     QUANT_INFO = 7
@@ -298,3 +299,14 @@ class STEP:
 
             gravity_compensation(info, time)
             drawTrack(info, time)
+
+
+    def unidimensional_plot(self, ax1, flag):
+        plt.plot(list(range(0, len(self.info[flag]))), self.info[flag], )
+        #FIXME: Substituir a linha anterior pelo tempo calculado na leitura
+        return
+
+
+    def get_info(self, index):
+        return self.info[index]
+    

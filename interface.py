@@ -1,11 +1,13 @@
 import numpy as np
+import matplotlib
 import matplotlib.pyplot as plt
-#from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import tkinter as tk
 from tkinter import *
 from tkinter import filedialog
 import math as m
 import STEP as step
+matplotlib.use('TkAgg')
 
 HOME = 0
 
@@ -15,9 +17,18 @@ window.title("Suspension Telemetry Program - Escuderia UFJF")
 INFO_PATH = "./config.json"
 program = step.STEP(INFO_PATH)
 
+def unidimensional_graphic_plot():
+    figure1 = plt.Figure(figsize=(6,5), dpi=100)
+    figure1.add_subplot(111).plot(list(range(0, len(program.get_info(1)))), program.get_info(1))
+    canvas = FigureCanvasTkAgg(figure1,master=window)
+    canvas.get_tk_widget().grid(column=0, row = 2)
+    canvas.draw()
+
+    
+    return
 
 def mode_selection():
-    unidimensional_graphic_button = Button(window, text="Unidimensional Graphic", command=print("unidimensional_graphic_button") )
+    unidimensional_graphic_button = Button(window, text="Unidimensional Graphic", command=unidimensional_graphic_plot)
     unidimensional_graphic_button.grid(column=1, row=1)
     tridimensional_graphic_button = Button(window, text="Tridimensional Graphic", command=print("tridimensional"))
     tridimensional_graphic_button.grid(column=2, row= 1)

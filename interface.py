@@ -36,19 +36,24 @@ def unidimensional_graphic_plot(value):
     canvas.draw()
     return
 
-def tridimensional_graphic_plot():
+def tridimensional_graphic_plot(value):
     figure1 = plt.Figure(figsize=(window.winfo_width()/100,window.winfo_height()/100),dpi=100)
     ax = Subplot(figure1, 111)    
     figure1.add_subplot(ax)
-    ax.plot(list(range(0, len(program.get_info(0)))), program.get_info(0))
-    ax.plot(list(range(0, len(program.get_info(1)))), program.get_info(1))
-    ax.plot(list(range(0, len(program.get_info(2)))), program.get_info(2))
+    ax.plot(list(range(0, len(program.get_info(value)))), program.get_info(value))
+    ax.plot(list(range(0, len(program.get_info(value+1)))), program.get_info(value+1))
+    ax.plot(list(range(0, len(program.get_info(value+2)))), program.get_info(value+2))
     canvas = FigureCanvasTkAgg(figure1, master=window)
     canvas.get_tk_widget().pack(side=RIGHT, anchor=NE)
     canvas.draw()
     return
 
 def gg_diagram_plot():
+    figure1 = plt.Figure(figsize=(window.winfo_width()/100,window.winfo_height()/100),dpi=100)
+    figure1.add_subplot(111).scatter(program.get_info(0), program.get_info(2))
+    canvas = FigureCanvasTkAgg(figure1,master=window)
+    canvas.get_tk_widget().pack(side=RIGHT, anchor = NE)
+    canvas.draw()
     return
 
 def track_layout_plot():
@@ -60,11 +65,14 @@ def mode_selection():
     side_frame.pack(side=LEFT, anchor= NW)
     unidimensional_graphic_button = Button(side_frame, text="Unidimensional Graphic", command=unidimensional_graphic_plot, width=button_width)
     unidimensional_graphic_button.pack(side=TOP, anchor=NW)
-    tridimensional_graphic_button = Button(side_frame, text="Tridimensional Graphic", command=tridimensional_graphic_plot,width=button_width)
+    tridimensional_graphic_button = Button(side_frame, text="Tridimensional Acel Graphic", command=lambda : tridimensional_graphic_plot(0),width=button_width)
     tridimensional_graphic_button.pack(side=TOP, anchor=NW)
-    gg_diagram_button = Button(side_frame, text= "GG Diagram", command=print("gg diagram"), width=button_width)
+    tridimensional_graphic_button2 = Button(side_frame, text="Tridimensional Gyro Graphic", command=lambda: tridimensional_graphic_plot(3),width=button_width)
+    tridimensional_graphic_button2.pack(side=TOP, anchor=NW)
+    gg_diagram_button = Button(side_frame, text= "GG Diagram", command=gg_diagram_plot, width=button_width)
     gg_diagram_button.pack(side=TOP, anchor=NW)
     track_layout_button = Button(side_frame, text="Track Layout", command=print("track layout"),width=button_width)
+    track_layout_button.pack(side=TOP, anchor=NW)
 
 def read_file_situation(value):
     if(value > 0):
